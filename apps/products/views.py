@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from apps.products.models import Product, Category
+from apps.products.models import Product, Category, Images
 
 # Create your views here.
 
@@ -17,6 +17,7 @@ def home(request):
 def product_detail(request, slug):
     categories = Category.objects.all()[:6]
     product = Product.objects.get(slug=slug)
+    images = Images.objects.all()
     context = {
         'categories':categories,
         'product':product,
