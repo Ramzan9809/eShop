@@ -1,18 +1,20 @@
 {% extends "homebase.html" %}
+
+
 {% block sidebar %} {% include "sidebar2.html" %} {% endblock sidebar %}	
 {% block body %}
 	<!-- BREADCRUMB -->
 	<div id="breadcrumb">
 		<div class="container">
 			<ul class="breadcrumb">
-				<li><a href="#">Home</a></li>
-				<li><a href="#">Products</a></li>
-				<li><a href="#">Category</a></li>
-				<li class="active">Product Name Goes Here</li>
+				<li><a href="{% url "home" %}">Главная</a></li> 
+				<li><a href="#">{{product.category.title}}</a></li>
+				<li class="active">{{product.title}}</li>
 			</ul>
 		</div>
 	</div>
 	<!-- /BREADCRUMB -->
+
 	<!-- section -->
 	<div class="section">
 		<!-- container -->
@@ -23,17 +25,31 @@
 				<div class="product product-details clearfix">
 					<div class="col-md-6">
 						<div id="product-main-view">
+							{% if images %}
 							{% for im in images %}
 							<div class="product-view">
 								<img src="{{im.img.url}}" alt="">
+							</div>
+							{% endfor %}
+							{% else %}
+							<div class="product-view">
+								<img src="{{product.image.url}}" alt="">
+							</div>
+							{% endif %}
 						</div>
-						{% endfor %}
 						<div id="product-view">
-							{% for im in images %}
+							{% if images %}
+								{% for im in images %}
+								<div class="product-view">
+									<img src="{{im.img.url}}" alt="">
+								</div>
+								{% endfor %}
+							{% else %}
 							<div class="product-view">
-								<img src="{{im.img.url}}" alt="">
+								<img src="{{product.image.url}}" alt="">
+							</div>
+							{% endif %}
 						</div>
-						{% endfor %}
 					</div>
 					<div class="col-md-6">
 						<div class="product-body"> 
@@ -49,10 +65,9 @@
 								</div>
 								<a href="#">3 Review(s) / Add Review</a>
 							</div>
-							<p><strong>Availability:</strong> In Stock</p>
+							<p><strong>Наличие:</strong> {% if product.status == 'True' %}Да{% else %}Нет{% endif %}</p>
 							<p><strong>Brand:</strong> E-SHOP</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-								dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+							<p>{{product.description|truncatewords:30}}</p>
 							<div class="product-options">
 								<ul class="size-option">
 									<li><span class="text-uppercase">Size:</span></li>
@@ -68,6 +83,7 @@
 									<li><a href="#" style="background-color:#9A54D8;"></a></li>
 								</ul>
 							</div>
+
 							<div class="product-btns">
 								<div class="qty-input">
 									<span class="text-uppercase">QTY: </span>
@@ -91,8 +107,7 @@
 							</ul>
 							<div class="tab-content">
 								<div id="tab1" class="tab-pane fade in active">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-										irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+									<p>{{product.description}}</p>
 								</div>
 								<div id="tab2" class="tab-pane fade in">
 									<div class="row">
@@ -132,9 +147,11 @@
 															irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
 													</div>
 												</div>
+
 												<div class="single-review">
 													<div class="review-heading">
 														<div><a href="#"><i class="fa fa-user-o"></i> John</a></div>
+														
 														<div><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0 PM</a></div>
 														<div class="review-rating pull-right">
 															<i class="fa fa-star"></i>
@@ -149,6 +166,7 @@
 															irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
 													</div>
 												</div>
+
 												<ul class="reviews-pages">
 													<li class="active">1</li>
 													<li><a href="#">2</a></li>
@@ -176,6 +194,7 @@
 														<div class="stars">
 															<input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
 															<input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
+															
 															<input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
 															<input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
 															<input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>
@@ -186,10 +205,14 @@
 											</form>
 										</div>
 									</div>
+
+
+
 								</div>
 							</div>
 						</div>
 					</div>
+
 				</div>
 				<!-- /Product Details -->
 			</div>
@@ -198,6 +221,7 @@
 		<!-- /container -->
 	</div>
 	<!-- /section -->
+
 	<!-- section -->
 	<div class="section">
 		<!-- container -->
@@ -211,6 +235,7 @@
 					</div>
 				</div>
 				<!-- section title -->
+
 				<!-- Product Single -->
 				<div class="col-md-3 col-sm-6 col-xs-6">
 					<div class="product product-single">
@@ -237,6 +262,7 @@
 					</div>
 				</div>
 				<!-- /Product Single -->
+
 				<!-- Product Single -->
 				<div class="col-md-3 col-sm-6 col-xs-6">
 					<div class="product product-single">
@@ -266,6 +292,7 @@
 					</div>
 				</div>
 				<!-- /Product Single -->
+
 				<!-- Product Single -->
 				<div class="col-md-3 col-sm-6 col-xs-6">
 					<div class="product product-single">
@@ -295,6 +322,7 @@
 					</div>
 				</div>
 				<!-- /Product Single -->
+
 				<!-- Product Single -->
 				<div class="col-md-3 col-sm-6 col-xs-6">
 					<div class="product product-single">
@@ -331,4 +359,3 @@
 		<!-- /container -->
 	</div>
 	<!-- /section -->
-	{% endblock body %}
