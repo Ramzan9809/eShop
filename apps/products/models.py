@@ -35,7 +35,7 @@ class Product(models.Model):
         ('True', 'True'),
         ('False', 'False'),
     )
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="категории")
     title = models.CharField(max_length=50, verbose_name="Название")
     keywords = models.CharField(max_length=255, verbose_name="ключевые слова для товара")
     image = models.ImageField(blank=True, upload_to='images/')
