@@ -1,8 +1,9 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from apps.products.views import home, product_detail, category_detail, contact
+from django.conf.urls.i18n import i18n_patterns
 
 
 urlpatterns = [
@@ -10,8 +11,18 @@ urlpatterns = [
     path('', home, name='home'),
     path('contact/', contact, name='contact'),
     path('product/<slug:slug>/', product_detail, name='product_detail'),
-    path('category/<slug:slug>/', category_detail, name='category_detail'),
+    path('category/<slug:slug>/', category_detail, name='category_detail')
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
+
+urlpatterns += i18n_patterns(
+    path('', home, name='home'),  
+    path('contact/', contact, name='contact'),  
+    path('product/<slug:slug>/', product_detail, name='product_detail'),  
+    path('category/<slug:slug>/', category_detail, name='category_detail'),  
+)
+
+urlpatterns += [path(r'^i18n/', include('django.conf.urls.i18n')),]
+urlpatterns += i18n_patterns(path(r'^admin/', admin.site.urls))
