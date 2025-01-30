@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, Images
+from .models import Category, Product, Images, Slider
 from mptt.admin import DraggableMPTTAdmin
 
 
@@ -20,6 +20,11 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     inlines = [ProductImageInline]
 
+class SliderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'img', 'title')
+
+
+admin.site.register(Slider, SliderAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Images)

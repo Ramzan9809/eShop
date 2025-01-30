@@ -7,13 +7,13 @@
             <!-- home slick -->
             <div id="home-slick">
                 <!-- banner -->
-                {% for slid in sliders %}
+                {% for slid in banner %}
                 <div class="banner banner-1">
-                    <img src="{{slid.image.url}}" alt="">
+                    <img src="{{ slid.img.url }}" alt="">
                     <div class="banner-caption text-center">
-                        <h1>{{slid.title}}</h1>
-                        <h3 class="white-color font-weak">Up to 50% Discount</h3>
-                        <button class="primary-btn">Shop Now</button>
+                        <h1 style="color: white;">{{ slid.title }}</h1>
+                        <!-- <h3 class="white-color font-weak">Up to 50% Discount</h3> -->
+                        <button class="primary-btn">Подробнее</button>
                     </div>
                 </div>
                 {% endfor %}

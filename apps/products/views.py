@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from apps.products.models import Product, Category, Images
+from apps.products.models import Product, Category, Images, Slider
 
 # Create your views here.
 
@@ -7,10 +7,12 @@ def home(request):
     products = Product.objects.all()
     sliders = Product.objects.all()[:2]
     categories = Category.objects.all()[:6]
+    banner = Slider.objects.all()  
     context = {
         'products':products,
         'sliders':sliders,
-        'categories':categories,
+        'categories': categories,
+        'banner': banner,
     }
     return render(request, 'index.html', context)
 
@@ -36,6 +38,10 @@ def category_detail(request, slug):
     }
     return render(request, 'category-detail.html', context)
 
+def content(request):
+    categories = Category.objects.all()[:6]
+    return render(request, 'contact.html', {'categories': categories})
 
-
-
+def contact(request):
+    categories = Category.objects.all()[:6]
+    return render(request, 'contact.html', {'categories':categories})

@@ -40,8 +40,7 @@ class Product(models.Model):
     keywords = models.CharField(max_length=255, verbose_name="ключевые слова для товара")
     image = models.ImageField(blank=True, upload_to='images/')
     description = models.TextField(verbose_name="Описание")
-    price = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    status = models.CharField(max_length=10, choices=STATUS)
+    price = models.DecimalField(verbose_name="цена", max_digits=12, decimal_places=2, default=0)
     status = models.CharField(max_length=10, choices=STATUS, default='True')
     slug = models.SlugField(null=False, unique=True)
     create_at = models.DateTimeField(auto_now_add=True)
@@ -81,5 +80,18 @@ class Comment(models.Model):
     status = models.CharField(choices=STATUS, default='New', max_length=10)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now = True)
+
     def __str__(self):
         return self.email
+    
+class Slider(models.Model):
+    id = models.AutoField(primary_key=True)
+    img = models.ImageField(blank=True, upload_to='slider', null=False, verbose_name=("Баннер"))
+    title = models.CharField(verbose_name=("Название"), max_length=50)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = ("баннер")
+        verbose_name_plural = ("Баннеры")
